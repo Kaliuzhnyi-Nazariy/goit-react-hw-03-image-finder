@@ -5,7 +5,7 @@ import { CirclesWithBar } from  'react-loader-spinner'
 
 import { Searchbar } from "./Searcbar";
 import { ImageGallery } from "./ImageGallery";
-import { Button } from "./Button";
+// import { Button } from "./Button";
 
 export class App extends Component {
 
