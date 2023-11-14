@@ -1,11 +1,11 @@
 import { Component } from "react"
 import { fetchRequest } from "./Api";
-import { CirclesWithBar } from  'react-loader-spinner'
+import { CirclesWithBar } from 'react-loader-spinner'
 
 
 import { Searchbar } from "./Searcbar";
 import { ImageGallery } from "./ImageGallery";
-// import { Button } from "./Button";
+import { Button } from "./Button";
 
 export class App extends Component {
 
@@ -16,40 +16,43 @@ export class App extends Component {
     isLoading: false,
 }
 
-  // async componentDidMount() {
-  //   // const cat = 'sun in the sky'
-  //   // try {
-  //   //         // const photos = await fetchRequest(cat)
-
-  //   //   const photos = await fetchRequest(this.state.query)
-
-  //   //   const res = photos.hits.map(item => item.largeImageURL)
-  //   //   console.log(res)
-
-  //   //   this.setState({
-  //   //     images: res
-  //   //   })
+  // async componentDidUpdate(prevProps, prevState) {
+  //   if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
+  //     const indexOfSlash = this.state.query.indexOf('/')
+  //     const queryForRequest = this.state.query.slice(indexOfSlash +1 , this.state.query.length)
+  //     this.setState({isLoading: true})
+  //     try {
+  //     const photos = await fetchRequest(queryForRequest, this.state.page)
+  //       const res = photos.hits.map(item => item.webformatURL)
+  //       console.log(photos)
+  //     this.setState(prevState => {
+  //       return {
+  //         images: prevState.images.concat(res)
+  //       }})
+        
       
-  //   // } catch(err) {
-  //   //   console.log(err)
-  //   // } finally {
-  //   //   console.log(this.state)
-  //   // }
+  //   } catch(err) {
+  //     console.log(err)
+  //   } finally {
+  //     this.setState({isLoading: false})
+  //   }
+
+  //   }
   // }
 
-  async componentDidUpdate(prevState) {
-    // if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
-
-    if (prevState.page !== this.state.page) {
+    async componentDidUpdate(prevProps, prevState) {
+    if (prevState.query !== this.state.query || prevState.page !== this.state.page) {
+      const indexOfSlash = this.state.query.indexOf('/')
+      const queryForRequest = this.state.query.slice(indexOfSlash +1 , this.state.query.length)
       this.setState({isLoading: true})
       try {
-      const photos = await fetchRequest(this.state.query, this.state.page)
-      const res = photos.hits.map(item => item.largeImageURL)
-      // console.log(res)
-      this.setState({
-        images: res
-      })
-        console.log(this.state)
+      const photos = await fetchRequest(queryForRequest, this.state.page)
+        const res = photos.hits;
+      this.setState(prevState => {
+        return {
+          images: prevState.images.concat(res)
+        }})
+        
       
     } catch(err) {
       console.log(err)
@@ -62,7 +65,10 @@ export class App extends Component {
 
   updateFindingPhoto = searching => {
     this.setState({
-      query: searching.query,
+      query: `${Date.now()}/${searching.query}`,
+      images: [],
+      page: 1,
+      isLoading: false,
     })
   }
 
@@ -74,7 +80,6 @@ export class App extends Component {
         page: prevState.page + 1,
       }
     })
-    console.log(this.state)
   }
   
   render() {
@@ -92,7 +97,7 @@ export class App extends Component {
             margin: '20px',
       }}
     >
-          <Searchbar onClick={this.updateFindingPhoto}></Searchbar>
+          <Searchbar onClick={e => this.updateFindingPhoto(e)}></Searchbar>
           {this.state.isLoading && (<CirclesWithBar
   height="100"
   width="100"
@@ -110,7 +115,8 @@ export class App extends Component {
           {/* {images.length > 0 && (<Button handleLoadMore={this.handleLoadMore}>
           </Button>)} */}
           <button onClick={this.handleLoadMore}>Load more</button>
-          {/* <Button handleLoadMore={this.handleLoadMore}></Button> */}
+          {/* {images.length > 0 && (<Button onClick={this.handleLoadMore}></Button>)} */}
+          {/* <Button onClick={this.handleLoadMore}></Button> */}
     </div>
   );
 

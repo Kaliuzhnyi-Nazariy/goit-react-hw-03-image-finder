@@ -1,6 +1,6 @@
 import { ImageGalleryItem } from './ImageGalleryItem';
 
-export const ImageGallery = ({ inf }) => {
+export const ImageGallery = ({ inf, onClick }) => {
   return (
     <ul
       style={{
@@ -11,7 +11,7 @@ export const ImageGallery = ({ inf }) => {
         flexWrap: 'wrap',
       }}
     >
-      <ImageGalleryItem inf={inf}></ImageGalleryItem>
+      <ImageGalleryItem inf={inf} onClick={onClick}></ImageGalleryItem>
       {/* <ImageGalleryItem></ImageGalleryItem> */}
     </ul>
   );
