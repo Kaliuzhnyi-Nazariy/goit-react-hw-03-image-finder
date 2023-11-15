@@ -3,9 +3,9 @@ import { fetchRequest } from "./Api";
 import { CirclesWithBar } from 'react-loader-spinner'
 
 
-import { Searchbar } from "./Searcbar";
-import { ImageGallery } from "./ImageGallery";
-import { Button } from "./Button";
+import { Searchbar } from "../Searchbar/Searcbar";
+import { ImageGallery } from "./ImageGalery/ImageGallery";
+import { Button } from "./Btn/Button";
 
 export class App extends Component {
 
@@ -85,18 +85,7 @@ export class App extends Component {
   render() {
     const { images } = this.state;
       return (
-    <div
-      style={{
-        height: '100vh',
-            display: 'flex',
-        flexDirection: "column",
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-            color: '#010101',
-            margin: '20px',
-      }}
-    >
+    <div>
           <Searchbar onClick={e => this.updateFindingPhoto(e)}></Searchbar>
           {this.state.isLoading && (<CirclesWithBar
   height="100"
@@ -112,11 +101,7 @@ export class App extends Component {
 />)}
           {images.length > 0 && (<ImageGallery inf={images}>
           </ImageGallery>)}
-          {/* {images.length > 0 && (<Button handleLoadMore={this.handleLoadMore}>
-          </Button>)} */}
-          <button onClick={this.handleLoadMore}>Load more</button>
-          {/* {images.length > 0 && (<Button onClick={this.handleLoadMore}></Button>)} */}
-          {/* <Button onClick={this.handleLoadMore}></Button> */}
+          {images.length > 0 && (<Button onClick={this.handleLoadMore}></Button>)}
     </div>
   );
 

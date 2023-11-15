@@ -1,5 +1,8 @@
 import { Component } from 'react';
-import { Modal } from './Modal';
+import { Modal } from '../Modal/Modal';
+
+import { GalleryItem } from './GalleryItem';
+import { ImageStyled } from './ImageStyled';
 
 export class ImageGalleryItem extends Component {
   state = {
@@ -23,30 +26,33 @@ export class ImageGalleryItem extends Component {
   // };
 
   render() {
-    const { inf } = this.props;
+    const { preview, bigPhoto, id, alt } = this.props;
 
-    return inf.map(item => {
-      return (
-        <li
+    // console.log(`id: ${key}`);
+    // console.log(`preview: ${preview}`);
+
+    return (
+      <>
+        <GalleryItem
+          key={id}
           style={{
             padding: '15px',
           }}
-          key={item.id}
           onClick={this.openModal}
         >
-          <img
-            src={item.webformatURL}
-            alt={item}
+          <ImageStyled
+            src={preview}
+            alt={alt}
             width="100px"
-            data-source={item.largeImageURL}
+            // data-source={item.largeImageURL}
           />
           <Modal
             isOpen={this.state.isModalOpen}
             onClose={this.closeModal}
-            photo={item.largeImageURL}
+            photo={bigPhoto}
           />
-        </li>
-      );
-    });
+        </GalleryItem>
+      </>
+    );
   }
 }
