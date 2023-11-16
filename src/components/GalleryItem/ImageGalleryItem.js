@@ -21,15 +21,8 @@ export class ImageGalleryItem extends Component {
     });
   };
 
-  // handleClick = e => {
-  //   return e.target.dataset.source;
-  // };
-
   render() {
     const { preview, bigPhoto, id, alt } = this.props;
-
-    // console.log(`id: ${key}`);
-    // console.log(`preview: ${preview}`);
 
     return (
       <>
@@ -46,12 +39,12 @@ export class ImageGalleryItem extends Component {
             width="100px"
             // data-source={item.largeImageURL}
           />
-          <Modal
-            isOpen={this.state.isModalOpen}
-            onClose={this.closeModal}
-            photo={bigPhoto}
-          />
         </GalleryItem>
+        <Modal
+          isOpen={this.state.isModalOpen}
+          onClose={this.closeModal}
+          photo={bigPhoto}
+        />
       </>
     );
   }
